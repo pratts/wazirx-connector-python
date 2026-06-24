@@ -12,7 +12,7 @@
   "system_status": {
     "client": "public",
     "action": "get",
-    "endpoint": "time"
+    "endpoint": "system_status"
   },
   "exchange_info": {
     "client": "public",
@@ -38,6 +38,11 @@
     "client": "public",
     "action": "get",
     "endpoint": "trades"
+  },
+  "klines": {
+    "client": "public",
+    "action": "get",
+    "endpoint": "klines"
   },
   "historical_trades": {
     "client": "signed",
@@ -79,6 +84,11 @@
     "action": "get",
     "endpoint": "all_orders"
   },
+  "my_trades": {
+    "client": "signed",
+    "action": "get",
+    "endpoint": "my_trades"
+  },
   "account_info": {
     "client": "signed",
     "action": "get",
@@ -93,5 +103,40 @@
     "client": "signed",
     "action": "post",
     "endpoint": "create_auth_token"
+  },
+  "coins": {
+    "client": "signed",
+    "action": "get",
+    "endpoint": "coins"
+  },
+  "withdraw_history": {
+    "client": "signed",
+    "action": "get",
+    "endpoint": "crypto_withdraws"
+  },
+  "withdraw": {
+    "client": "signed",
+    "action": "post",
+    "endpoint": "crypto_withdraws"
+  },
+  "deposit_address": {
+    "client": "signed",
+    "action": "get",
+    "endpoint": "crypto_deposit_address"
+  },
+  "sub_account_transfer_history": {
+    "client": "signed",
+    "action": "get",
+    "endpoint": "sub_account_transfer_history"
+  },
+  "sub_accounts": {
+    "client": "signed",
+    "action": "get",
+    "endpoint": "sub_accounts"
+  },
+  "sub_account_fund_transfer": {
+    "client": "signed",
+    "action": "post",
+    "endpoint": "sub_account_fund_transfer"
   }
 }
