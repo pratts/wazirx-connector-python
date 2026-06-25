@@ -7,8 +7,12 @@ import urllib
 import requests
 
 from wazirx_sapi_client.rest.endpoints import ENDPOINTS
+from wazirx_sapi_client.rest.exceptions import WazirxAPIError
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(PROJECT_ROOT, "api_mapper.json"), "r") as _f:
+    _API_MAPPER = json.load(_f)
 
 
 class BaseClient(object):
@@ -19,7 +23,7 @@ class BaseClient(object):
     ):
         self.api_key = api_key
         self.secret_key = secret_key
-        self.api_mapper = json.load(open(PROJECT_ROOT + "/api_mapper.json", "r"))
+        self.api_mapper = _API_MAPPER
 
 
 class Client(BaseClient):
@@ -32,7 +36,7 @@ class Client(BaseClient):
         if kwargs is None:
             kwargs = {}
         if not all([name, self.api_mapper.get(name, "")]):
-            raise BaseException("Valid Api Name Required")
+            raise WazirxAPIError(f"Unknown API name: {name!r}")
 
         api_detail = self.api_mapper[name]
         return self._send_request(api_detail, kwargs)
@@ -54,7 +58,7 @@ class Client(BaseClient):
             response = requests.delete(url, data=kwargs, headers=headers)
         if response is not None:
             return response.status_code, response.json()
-        raise BaseException("Invalid Request Type")
+        raise WazirxAPIError(f"Unsupported HTTP method: {request_method!r}")
 
     def _get_headers(self, api_detail):
         output = {
